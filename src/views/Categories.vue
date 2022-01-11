@@ -3,6 +3,7 @@
     <h1>Liste des catégories</h1>
     <table class="table table-responsive-md mt-5 pt-5">
       <thead>
+      <router-link class="btn btn-dark" to="/nouvelle-categorie" style="display: flex; justify-content: center;">Nouvelle catégorie</router-link>
       <tr>
         <th>Id</th>
         <th>Libelle</th>
@@ -22,20 +23,20 @@
         </td>
         <td>{{categorie.couleur}}</td>
         <td>
-          <router-link class="btn btn-info" :to="{name:'categorie_edit', params: {id: categorie.id}}">
-            Modifier
+          <router-link class="btn btn-outline-secondary" :to="{name:'categorie_edit', params: {id: categorie.id}}">
+            Editer
           </router-link>
+          <button type="button" class="btn-close" aria-label="Close" @click="deleteCategorie"></button>
         </td>
       </tr>
       </tbody>
     </table>
-    <router-link class="btn btn-primary" to="/nouvelle-categorie">Nouvelle catégorie</router-link>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import {getCategories} from '../api/categorie'
+import {deleteCategorie, getCategories} from '../api/categorie'
 
 export default {
   name: 'Categories',
@@ -49,6 +50,13 @@ export default {
       return response.data['hydra:member']
     })
 
+  },
+  async deleteCategorie() {
+    await deleteCategorie(this.id).then((reponse) => {
+      console.log(reponse)
+      //this.confirm = true //activation d'un bandeau de confirmation
+      this.$router.push('/categories') //redirection
+    })
   }
 }
 

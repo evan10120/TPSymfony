@@ -32,7 +32,7 @@
       <button class="btn btn-danger" @click="deleteMessage">Supprimer</button>
     </div>
     <br>
-    <a class="btn btn-info float-start" href="/messages">Retour</a>
+    <a class="btn btn-dark" href="/messages">Retour</a>
   </div>
 </template>
 

@@ -22,7 +22,7 @@
       <button class="btn btn-danger" @click="deleteCategorie">Supprimer</button>
     </div>
     <br>
-    <a class="btn btn-info float-start" href="/categories">Retour</a>
+    <a class="btn btn-dark" href="/categories">Retour</a>
   </div>
 </template>
 

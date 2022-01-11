@@ -3,6 +3,8 @@
     <h1>Liste des messages</h1>
     <table class="table table-responsive-md mt-5 pt-5">
       <thead>
+      <router-link class="btn btn-dark" to="/nouveau-message" style="display: flex; justify-content: center;">Nouveau message</router-link>
+
       <tr>
         <th>Id</th>
         <th>Titre</th>
@@ -33,21 +35,22 @@
           {{formatDate(message.date)}}
         </td>
         <td>
-          <router-link class="btn btn-info" :to="{name:'message_edit', params: {id: message.id}}" >
-            <font-awesome-icon icon="fa-solid fa-coffee" />
+          <router-link class="btn btn-outline-secondary" :to="{name:'message_edit', params: {id: message.id}}" >
+            Editer
           </router-link>
+          <button type="button" class="btn-close" aria-label="Close" @click="deleteMessage"></button>
         </td>
       </tr>
       </tbody>
     </table>
-    <router-link class="btn btn-primary" to="/nouveau-message">Nouveau message</router-link>
   </div>
 </template>
 
 <script>
-import {getMessages} from '../api/message'
+import {deleteMessage, getMessages} from '../api/message'
 import {getCategorie} from "@/api/categorie";
 import formatDateMixin from '../plugin/formatDateMixin.js';
+
 
 export default {
   name: 'Messages',
@@ -72,6 +75,13 @@ export default {
         return data
       })
     },
+  },
+  async deleteMessage() {
+    await deleteMessage(this.id).then((response) => {
+      console.log(response)
+      //this.confirm = true //activation d'un bandeau de confirmation
+      this.$router.push('/messages') //redirection
+    })
   },
   mixins: [formatDateMixin],
   computed: {
